@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/votre-username/schooltrad/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 
-Une application dashboard puissante pour gérer et suivre vos configurations de trading sur différents actifs et timeframes.
+Une application pour les bro de la shcool
 
 ![SchoolTrad](https://via.placeholder.com/800x400?text=SchoolTrad)
 
