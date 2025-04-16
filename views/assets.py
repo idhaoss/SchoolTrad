@@ -7,7 +7,7 @@ import pandas as pd
 from config.settings import ASSET_CATEGORIES, TIMEFRAMES
 from models.data import (
     is_tested, is_improved, has_note, has_screenshots, toggle_tested, toggle_improved,
-    save_profile_data, get_custom_assets, add_custom_asset
+    save_profile_data, get_custom_assets, add_custom_asset, remove_custom_asset
 )
 
 def show_asset_category_selector():
@@ -34,12 +34,13 @@ def show_asset_category_selector():
         
         # Récupérer la liste des cryptos personnalisées
         custom_assets = get_custom_assets(st.session_state.current_profile, st.session_state.profile_data)
-        all_assets = ASSET_CATEGORIES["crypto"]["assets"] + custom_assets
-        all_assets = list(set(all_assets))  # Enlever les doublons
-        all_assets.sort()  # Trier la liste
         
-        # Interface d'ajout de crypto
-        with st.expander("➕ Ajouter une crypto personnalisée", expanded=False):
+        # Interface de gestion des cryptos
+        st.markdown("### Gestion des cryptos")
+        tab1, tab2 = st.tabs(["📝 Ajouter", "🗑️ Supprimer"])
+        
+        # Onglet Ajout
+        with tab1:
             add_col1, add_col2 = st.columns([3, 1])
             with add_col1:
                 new_asset = st.text_input(
@@ -66,6 +67,44 @@ def show_asset_category_selector():
                             st.error(message)
                     else:
                         st.error("Veuillez entrer un symbole.")
+        
+        # Onglet Suppression
+        with tab2:
+            if not custom_assets:
+                st.info("Aucune crypto personnalisée à supprimer.")
+            else:
+                st.write("Sélectionnez une crypto à supprimer :")
+                for asset in custom_assets:
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        st.write(asset)
+                    with col2:
+                        if st.button("🗑️", key=f"delete_{asset}"):
+                            success, message, updated_data = remove_custom_asset(
+                                st.session_state.current_profile,
+                                asset,
+                                st.session_state.profile_data
+                            )
+                            if success:
+                                st.success(message)
+                                st.session_state.profile_data = updated_data
+                                st.rerun()
+                            else:
+                                st.error(message)
+        
+        # Préparer la liste des cryptos pour l'affichage
+        # Mettre BTC en premier, puis trier le reste
+        all_assets = ASSET_CATEGORIES["crypto"]["assets"] + custom_assets
+        all_assets = list(set(all_assets))  # Enlever les doublons
+        
+        # Retirer BTC s'il existe
+        if "BTC/USD" in all_assets:
+            all_assets.remove("BTC/USD")
+        # Trier les autres cryptos
+        all_assets.sort()
+        # Remettre BTC en premier
+        if "BTC/USD" in ASSET_CATEGORIES["crypto"]["assets"] + custom_assets:
+            all_assets = ["BTC/USD"] + all_assets
         
         return all_assets, "crypto"
     else:
@@ -296,10 +335,20 @@ def show_assets_view(show_selector=True):
         # Use the asset category stored in session state
         if "view" not in st.session_state or st.session_state.view == "crypto":
             # Récupérer la liste des cryptos personnalisées
+            # Récupérer et organiser la liste des cryptos
             custom_assets = get_custom_assets(st.session_state.current_profile, st.session_state.profile_data)
             all_assets = ASSET_CATEGORIES["crypto"]["assets"] + custom_assets
             all_assets = list(set(all_assets))  # Enlever les doublons
-            all_assets.sort()  # Trier la liste
+            
+            # Retirer BTC s'il existe
+            if "BTC/USD" in all_assets:
+                all_assets.remove("BTC/USD")
+            # Trier les autres cryptos
+            all_assets.sort()
+            # Remettre BTC en premier
+            if "BTC/USD" in ASSET_CATEGORIES["crypto"]["assets"] + custom_assets:
+                all_assets = ["BTC/USD"] + all_assets
+            
             current_assets = all_assets
             asset_type = "crypto"
         else:
