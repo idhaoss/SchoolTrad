@@ -4,4 +4,3 @@ pillow>=9.0.0
 numpy>=1.21.0
 plotly>=5.13.0
 watchdog>=3.0.0
--e .
