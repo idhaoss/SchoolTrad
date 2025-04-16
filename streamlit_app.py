@@ -2,13 +2,22 @@
 Point d'entrée principal pour le déploiement Streamlit.
 Ce fichier est configuré pour fonctionner sur Streamlit Cloud.
 """
+import os
+import sys
 import streamlit as st
-from models.auth import setup_config
-from models.data import load_profile_data, save_profile_data
-from views.authentication import show_login_screen
-from views.assets import show_assets_view
-from views.details import show_details_view
-from views.admin import show_admin_view, show_profile_data_view
+
+# Ajouter le répertoire parent au PYTHONPATH
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from .models.auth import setup_config
+from .models.data import load_profile_data, save_profile_data
+from .views.authentication import show_login_screen
+from .views.assets import show_assets_view
+from .views.details import show_details_view
+from .views.admin import show_admin_view, show_profile_data_view
 
 # Configuration de la page
 st.set_page_config(
@@ -88,7 +97,7 @@ else:
             
             # Bouton d'export
             if st.button("Exporter mes données"):
-                from models.data import export_profile_data
+                from .models.data import export_profile_data
                 
                 data_str = export_profile_data(st.session_state.current_profile)
                 
@@ -105,7 +114,7 @@ else:
                 merge_option = st.checkbox("Fusionner avec les données existantes", value=True)
                 
                 if uploaded_file is not None and st.button("Importer"):
-                    from models.data import import_profile_data
+                    from .models.data import import_profile_data
                     
                     json_data = uploaded_file.read().decode("utf-8")
                     success, message = import_profile_data(
