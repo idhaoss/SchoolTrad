@@ -1,22 +1,26 @@
-# SchoolTrad
+# 📊 SchoolTrad
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/votre-username/schooltrad/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
+[![Python](https://img.shields.io/badge/python-3.8+-yellow.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/streamlit-1.28.0+-red.svg)](https://streamlit.io/)
 
-Une application pour les bro de la shcool
+**SchoolTrad** est une plateforme moderne de suivi et d'analyse de configurations de trading, conçue pour permettre aux traders de tous niveaux de documenter et d'améliorer leurs stratégies de manière collaborative.
 
-![SchoolTrad](https://via.placeholder.com/800x400?text=SchoolTrad)
+![SchoolTrad](https://via.placeholder.com/800x400?text=SchoolTrad+Dashboard)
 
-## Caractéristiques
+## ✨ Caractéristiques
 
-- **Interface intuitive** permettant de visualiser rapidement vos configurations testées et améliorées
+- **Design moderne** avec interface utilisateur intuitive et responsive
+- **Catalogue étendu d'actifs** comprenant plus de 40 cryptomonnaies, forex, indices, matières premières et actions
+- **Suivi des actifs** sur 9 timeframes différentes (1m à 1M)
 - **Multi-profils** avec système d'authentification pour différents utilisateurs
 - **Mode Super Admin** pour gérer et analyser les données de tous les profils
-- **Suivi des actifs** sur plusieurs timeframes (cryptomonnaies et actifs financiers traditionnels)
 - **Paramètres de stratégie** personnalisables pour chaque configuration
 - **Système de notes** pour conserver vos observations
 - **Capture d'écran** pour sauvegarder jusqu'à 2 images par configuration
 - **Import/Export** de données pour la sauvegarde et le partage
+- **Installation simplifiée** avec scripts automatisés pour Windows et Linux/macOS
 
 ## Installation
 

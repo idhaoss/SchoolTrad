@@ -90,7 +90,7 @@ def show_login_screen():
         
         if st.button("Créer et se connecter"):
             if new_profile_name:
-                success, message, updated_config = create_profile(new_profile_name, app_config)
+                success, message, updated_config = create_profile(new_profile_name, app_config, False)
                 
                 if success:
                     st.success(message)

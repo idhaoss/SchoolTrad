@@ -4,7 +4,7 @@ Displays the main asset × timeframe table and related components.
 """
 import streamlit as st
 import pandas as pd
-from trading_dashboard_pro.config.settings import CRYPTOS, FINANCIAL_ASSETS, TIMEFRAMES
+from trading_dashboard_pro.config.settings import ASSET_CATEGORIES, TIMEFRAMES
 from trading_dashboard_pro.models.data import (
     is_tested, is_improved, has_note, has_screenshots, toggle_tested, toggle_improved,
     save_profile_data
@@ -31,24 +31,25 @@ def show_asset_category_selector():
     # Get current asset list based on selection
     if view_options == "Crypto-monnaies":
         st.session_state.view = "crypto"
-        current_assets = CRYPTOS
+        current_assets = ASSET_CATEGORIES["crypto"]["assets"]
         return current_assets, "crypto"
     else:
         st.session_state.view = "finance"
         
         # Financial subcategory selector
         with col2:
+            finance_categories = [cat for cat in ASSET_CATEGORIES.keys() if cat != "crypto"]
             if "finance_category" not in st.session_state:
-                st.session_state.finance_category = list(FINANCIAL_ASSETS.keys())[0]
+                st.session_state.finance_category = finance_categories[0]
                 
             finance_category = st.selectbox(
                 "Type d'actifs financiers", 
-                list(FINANCIAL_ASSETS.keys()),
-                index=list(FINANCIAL_ASSETS.keys()).index(st.session_state.finance_category)
+                finance_categories,
+                index=finance_categories.index(st.session_state.finance_category)
             )
             st.session_state.finance_category = finance_category
             
-        current_assets = FINANCIAL_ASSETS[finance_category]
+        current_assets = ASSET_CATEGORIES[finance_category]["assets"]
         return current_assets, "finance"
 
 def generate_asset_table(assets, timeframes, profile_data):
@@ -259,12 +260,13 @@ def show_assets_view(show_selector=True):
     else:
         # Use the asset category stored in session state
         if "view" not in st.session_state or st.session_state.view == "crypto":
-            current_assets = CRYPTOS
+            current_assets = ASSET_CATEGORIES["crypto"]["assets"]
             asset_type = "crypto"
         else:
+            finance_categories = [cat for cat in ASSET_CATEGORIES.keys() if cat != "crypto"]
             if "finance_category" not in st.session_state:
-                st.session_state.finance_category = list(FINANCIAL_ASSETS.keys())[0]
-            current_assets = FINANCIAL_ASSETS[st.session_state.finance_category]
+                st.session_state.finance_category = finance_categories[0]
+            current_assets = ASSET_CATEGORIES[st.session_state.finance_category]["assets"]
             asset_type = "finance"
     
     # Generate and display the interactive asset table

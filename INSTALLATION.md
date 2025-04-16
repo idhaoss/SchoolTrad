@@ -2,7 +2,31 @@
 
 Ce document fournit les instructions détaillées pour installer l'application SchoolTrad et, si vous le souhaitez, la publier sur GitHub.
 
-## Installation locale
+## Installation automatique (Recommandé)
+
+### Windows
+1. Assurez-vous que Python 3.8 ou supérieur est installé sur votre système
+2. Double-cliquez simplement sur le fichier `install.bat`
+3. Suivez les instructions à l'écran
+4. Un raccourci sera créé sur votre Bureau pour lancer l'application
+
+### macOS/Linux
+1. Assurez-vous que Python 3.8 ou supérieur est installé sur votre système
+2. Ouvrez un terminal et naviguez jusqu'au dossier du projet
+3. Rendez le script d'installation exécutable :
+   ```bash
+   chmod +x install.sh
+   ```
+4. Exécutez le script d'installation :
+   ```bash
+   ./install.sh
+   ```
+5. Suivez les instructions à l'écran
+6. Un raccourci sera créé sur votre Bureau pour lancer l'application
+
+## Installation manuelle
+
+Si vous préférez installer l'application manuellement, suivez ces étapes :
 
 1. Assurez-vous que Python 3.8 ou supérieur est installé sur votre système
 2. Clonez ou téléchargez ce dépôt sur votre machine
@@ -26,7 +50,7 @@ Ce document fournit les instructions détaillées pour installer l'application S
    ```
 7. Lancez l'application :
    ```bash
-   python -m streamlit run trading_dashboard_pro/app.py
+   python -m streamlit run trading_dashboard_pro/streamlit_app.py
    ```
 8. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:8501)
 

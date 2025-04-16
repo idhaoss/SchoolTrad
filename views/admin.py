@@ -7,7 +7,7 @@ import streamlit as st
 import pandas as pd
 from trading_dashboard_pro.models.auth import get_profile_list, delete_profile
 from trading_dashboard_pro.models.data import get_profile_stats, load_profile_data, export_profile_data, import_profile_data, save_profile_data
-from trading_dashboard_pro.config.settings import CRYPTOS, FINANCIAL_ASSETS, TIMEFRAMES
+from trading_dashboard_pro.config.settings import ASSET_CATEGORIES, TIMEFRAMES
 from trading_dashboard_pro.views.assets import generate_asset_table
 
 def show_profile_management(app_config):
@@ -177,16 +177,17 @@ def show_profile_data_view(profile_name):
         
         # Set current assets based on selection
         if view_options == "Crypto-monnaies":
-            current_assets = CRYPTOS
+            current_assets = ASSET_CATEGORIES["crypto"]["assets"]
             asset_type = "crypto"
         else:
             with cat_col2:
+                finance_categories = [cat for cat in ASSET_CATEGORIES.keys() if cat != "crypto"]
                 finance_category = st.selectbox(
                     "Type d'actifs financiers", 
-                    list(FINANCIAL_ASSETS.keys()),
+                    finance_categories,
                     key="admin_finance_category"
                 )
-            current_assets = FINANCIAL_ASSETS[finance_category]
+            current_assets = ASSET_CATEGORIES[finance_category]["assets"]
             asset_type = "finance"
         
         # Utilisez generate_interactive_asset_table au lieu de generate_asset_table
