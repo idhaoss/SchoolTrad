@@ -11,13 +11,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.append(current_dir)
 
-# Utiliser des imports absolus
-from trading_dashboard_pro.models.auth import setup_config
-from trading_dashboard_pro.models.data import load_profile_data, save_profile_data
-from trading_dashboard_pro.views.authentication import show_login_screen
-from trading_dashboard_pro.views.assets import show_assets_view
-from trading_dashboard_pro.views.details import show_details_view
-from trading_dashboard_pro.views.admin import show_admin_view, show_profile_data_view
+# Utiliser des imports relatifs
+from models.auth import setup_config
+from models.data import load_profile_data, save_profile_data
+from views.authentication import show_login_screen
+from views.assets import show_assets_view
+from views.details import show_details_view
+from views.admin import show_admin_view, show_profile_data_view
 
 # Configuration de la page
 st.set_page_config(
@@ -97,7 +97,7 @@ else:
             
             # Bouton d'export
             if st.button("Exporter mes données"):
-                from trading_dashboard_pro.models.data import export_profile_data
+                from models.data import export_profile_data
                 
                 data_str = export_profile_data(st.session_state.current_profile)
                 
@@ -114,7 +114,7 @@ else:
                 merge_option = st.checkbox("Fusionner avec les données existantes", value=True)
                 
                 if uploaded_file is not None and st.button("Importer"):
-                    from trading_dashboard_pro.models.data import import_profile_data
+                    from models.data import import_profile_data
                     
                     json_data = uploaded_file.read().decode("utf-8")
                     success, message = import_profile_data(
