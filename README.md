@@ -1,6 +1,6 @@
 # 📊 SchoolTrad
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/votre-username/schooltrad/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/idhaoss/SchoolTrad/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![Python](https://img.shields.io/badge/python-3.8+-yellow.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.28.0+-red.svg)](https://streamlit.io/)
@@ -29,12 +29,43 @@
 - Python 3.8 ou supérieur
 - pip (gestionnaire de paquets Python)
 
-### Étapes d'installation
+### Installation automatique (Recommandé)
+
+#### Windows
+1. Téléchargez ou clonez ce dépôt
+   ```
+   git clone https://github.com/idhaoss/SchoolTrad.git
+   cd SchoolTrad
+   ```
+2. Double-cliquez simplement sur le fichier `install.bat`
+3. Suivez les instructions à l'écran
+4. Un raccourci sera créé sur votre Bureau pour lancer l'application
+
+#### macOS/Linux
+1. Téléchargez ou clonez ce dépôt
+   ```
+   git clone https://github.com/idhaoss/SchoolTrad.git
+   cd SchoolTrad
+   ```
+2. Rendez le script d'installation exécutable :
+   ```bash
+   chmod +x install.sh
+   ```
+3. Exécutez le script d'installation :
+   ```bash
+   ./install.sh
+   ```
+4. Suivez les instructions à l'écran
+5. Un raccourci sera créé sur votre Bureau pour lancer l'application
+
+### Installation manuelle
+
+Si vous préférez installer l'application manuellement :
 
 1. Clonez ce dépôt:
    ```
-   git clone https://github.com/votre-username/trading-dashboard-pro.git
-   cd trading-dashboard-pro
+   git clone https://github.com/idhaoss/SchoolTrad.git
+   cd SchoolTrad
    ```
 
 2. Créez un environnement virtuel (recommandé):
@@ -50,7 +81,7 @@
 
 4. Lancez l'application:
    ```
-   python -m streamlit run trading_dashboard_pro/app.py
+   python -m streamlit run streamlit_app.py
    ```
 
 5. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:8501)
@@ -58,12 +89,14 @@
 ## Structure du projet
 
 ```
-trading_dashboard_pro/
-├── app.py                   # Point d'entrée principal
+SchoolTrad/
+├── streamlit_app.py         # Point d'entrée principal
+├── install.bat              # Script d'installation Windows
+├── install.sh               # Script d'installation Linux/macOS
 ├── config/                  # Configuration
 │   ├── __init__.py
 │   ├── settings.py          # Constantes et paramètres
-│   └── styles.py            # Styles CSS
+│   └── styles.py            # Styles CSS avec thèmes
 ├── models/                  # Gestion des données
 │   ├── __init__.py
 │   ├── auth.py              # Authentification et profils
@@ -77,9 +110,13 @@ trading_dashboard_pro/
 ├── utils/                   # Utilitaires
 │   └── __init__.py
 ├── profiles/                # Stockage des données (créé automatiquement)
+├── .streamlit/              # Configuration Streamlit
+│   └── config.toml          # Paramètres de l'interface
 ├── CONTRIBUTING.md          # Guide pour les contributeurs
+├── INSTALLATION.md          # Guide d'installation détaillé
 ├── LICENSE.md               # Licence du projet
-└── README.md                # Ce fichier
+├── README.md                # Ce fichier
+└── VERSION                  # Numéro de version
 ```
 
 ## Utilisation
