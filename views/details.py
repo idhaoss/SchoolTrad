@@ -60,74 +60,68 @@ def show_parameters_tab(asset, timeframe, profile_data):
         # INPUTS section
         st.markdown("### INPUTS")
         
-        # Première rangée de paramètres
-        col1, col2, col3, col4 = st.columns(4)
+        # Disposition verticale des paramètres
+        st.markdown("#### Paramètres principaux")
         
+        # Premier groupe de paramètres - disposition verticale
+        new_params["Price Change Threshold (%)"] = st.text_input(
+            "Price Change Threshold (%)", 
+            params["Price Change Threshold (%)"]
+        )
+        
+        new_params["Kernel Timeframe"] = st.text_input(
+            "Kernel Timeframe", 
+            params["Kernel Timeframe"]
+        )
+        
+        # ADX Parameters - côte à côte
+        col1, col2 = st.columns(2)
         with col1:
-            new_params["Price Change Threshold (%)"] = st.text_input(
-                "Price Change Threshold (%)", 
-                params["Price Change Threshold (%)"]
-            )
-        
-        with col2:
-            new_params["Kernel Timeframe"] = st.text_input(
-                "Kernel Timeframe", 
-                params["Kernel Timeframe"]
-            )
-            
-        with col3:
             new_params["ADX Length"] = st.text_input(
                 "ADX Length", 
                 params["ADX Length"]
             )
-            
-        with col4:
+        with col2:    
             new_params["ADX Level"] = st.text_input(
                 "ADX Level", 
                 params["ADX Level"]
             )
         
-        # Deuxième rangée de paramètres
-        col1, col2, col3 = st.columns(3)
+        # Deuxième groupe de paramètres - avec un titre
+        st.markdown("#### Paramètres de régression (1)")
         
-        with col1:
-            new_params["Start Regression at Bar"] = st.text_input(
-                "Start Regression at Bar", 
-                params["Start Regression at Bar"]
-            )
-            
-        with col2:
-            new_params["Lookback Window"] = st.text_input(
-                "Lookback Window", 
-                params["Lookback Window"]
-            )
-            
-        with col3:
-            new_params["Relative Weighting"] = st.text_input(
-                "Relative Weighting", 
-                params["Relative Weighting"]
-            )
+        new_params["Start Regression at Bar"] = st.text_input(
+            "Start Regression at Bar", 
+            params["Start Regression at Bar"]
+        )
         
-        # Troisième rangée de paramètres
-        col1, col2, col3 = st.columns(3)
+        new_params["Lookback Window"] = st.text_input(
+            "Lookback Window", 
+            params["Lookback Window"]
+        )
         
-        with col1:
-            new_params["Start Regression at Bar (2)"] = st.text_input(
-                "Start Regression at Bar (2)", 
-                params["Start Regression at Bar (2)"]
-            )
-            
-        with col2:
-            new_params["Lookback Window (2)"] = st.text_input(
-                "Lookback Window (2)", 
-                params["Lookback Window (2)"]
-            )
-            
-        with col3:
-            new_params["Relative Weighting (2)"] = st.text_input(
-                "Relative Weighting (2)", 
-                params["Relative Weighting (2)"]
-            )
+        new_params["Relative Weighting"] = st.text_input(
+            "Relative Weighting", 
+            params["Relative Weighting"]
+        )
+        
+        # Troisième groupe de paramètres - avec un titre
+        st.markdown("#### Paramètres de régression (2)")
+        
+        new_params["Start Regression at Bar (2)"] = st.text_input(
+            "Start Regression at Bar (2)", 
+            params["Start Regression at Bar (2)"]
+        )
+        
+        new_params["Lookback Window (2)"] = st.text_input(
+            "Lookback Window (2)", 
+            params["Lookback Window (2)"]
+        )
+        
+        new_params["Relative Weighting (2)"] = st.text_input(
+            "Relative Weighting (2)", 
+            params["Relative Weighting (2)"]
+        )
         
         # COLORS section
         st.markdown("### COLORS")

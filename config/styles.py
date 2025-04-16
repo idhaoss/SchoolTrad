@@ -197,14 +197,43 @@ MAIN_CSS = """
     
     .parameter-section {
         border-left: 4px solid #3b82f6;
+        background: linear-gradient(to right, #f0f7ff, white);
     }
     
     .note-section {
         border-left: 4px solid #10b981;
+        background: linear-gradient(to right, #f0fff4, white);
     }
     
     .screenshot-section {
         border-left: 4px solid #f59e0b;
+        background: linear-gradient(to right, #fffbeb, white);
+    }
+    
+    /* FORMS AND INPUT STYLING */
+    input[type="text"], .stTextInput > div > div > input {
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 1rem;
+        width: 100%;
+        transition: all 0.2s;
+        background-color: #f8fafc;
+    }
+    
+    input[type="text"]:focus, .stTextInput > div > div > input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        outline: none;
+    }
+    
+    /* Parameter Group Styling */
+    .stMarkdown h4 {
+        margin-top: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+        font-weight: 600;
     }
     
     /* STATUS INDICATORS IN TABLE */
