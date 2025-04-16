@@ -7,7 +7,7 @@ import pandas as pd
 from config.settings import ASSET_CATEGORIES, TIMEFRAMES
 from models.data import (
     is_tested, is_improved, has_note, has_screenshots, toggle_tested, toggle_improved,
-    save_profile_data
+    save_profile_data, get_custom_assets, add_custom_asset
 )
 
 def show_asset_category_selector():
@@ -31,8 +31,43 @@ def show_asset_category_selector():
     # Get current asset list based on selection
     if view_options == "Crypto-monnaies":
         st.session_state.view = "crypto"
-        current_assets = ASSET_CATEGORIES["crypto"]["assets"]
-        return current_assets, "crypto"
+        
+        # Récupérer la liste des cryptos personnalisées
+        custom_assets = get_custom_assets(st.session_state.current_profile, st.session_state.profile_data)
+        all_assets = ASSET_CATEGORIES["crypto"]["assets"] + custom_assets
+        all_assets = list(set(all_assets))  # Enlever les doublons
+        all_assets.sort()  # Trier la liste
+        
+        # Interface d'ajout de crypto
+        with st.expander("➕ Ajouter une crypto personnalisée", expanded=False):
+            add_col1, add_col2 = st.columns([3, 1])
+            with add_col1:
+                new_asset = st.text_input(
+                    "Symbole de la crypto (ex: SOL/USD):",
+                    key="new_crypto_input"
+                )
+            with add_col2:
+                if st.button("Ajouter", key="add_crypto_btn", type="primary"):
+                    if new_asset:
+                        # Vérifier le format
+                        if "/" not in new_asset:
+                            new_asset = f"{new_asset}/USD"
+                        
+                        success, message, updated_data = add_custom_asset(
+                            st.session_state.current_profile,
+                            new_asset,
+                            st.session_state.profile_data
+                        )
+                        if success:
+                            st.success(message)
+                            st.session_state.profile_data = updated_data
+                            st.rerun()
+                        else:
+                            st.error(message)
+                    else:
+                        st.error("Veuillez entrer un symbole.")
+        
+        return all_assets, "crypto"
     else:
         st.session_state.view = "finance"
         
@@ -260,7 +295,12 @@ def show_assets_view(show_selector=True):
     else:
         # Use the asset category stored in session state
         if "view" not in st.session_state or st.session_state.view == "crypto":
-            current_assets = ASSET_CATEGORIES["crypto"]["assets"]
+            # Récupérer la liste des cryptos personnalisées
+            custom_assets = get_custom_assets(st.session_state.current_profile, st.session_state.profile_data)
+            all_assets = ASSET_CATEGORIES["crypto"]["assets"] + custom_assets
+            all_assets = list(set(all_assets))  # Enlever les doublons
+            all_assets.sort()  # Trier la liste
+            current_assets = all_assets
             asset_type = "crypto"
         else:
             finance_categories = [cat for cat in ASSET_CATEGORIES.keys() if cat != "crypto"]

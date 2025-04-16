@@ -431,6 +431,82 @@ def import_profile_data(profile_name, json_data, merge=False):
     except Exception as e:
         return False, f"Erreur lors de l'importation: {e}"
 
+def get_custom_assets(profile_name, data=None):
+    """
+    Get custom assets added by the user
+    
+    Args:
+        profile_name (str): Name of the profile
+        data (dict, optional): Profile data. If None, data will be loaded.
+        
+    Returns:
+        list: List of custom assets
+    """
+    if data is None:
+        data = load_profile_data(profile_name)
+    
+    if '_custom_assets' in data:
+        return data['_custom_assets']
+    return []
+
+def add_custom_asset(profile_name, asset_symbol, data=None):
+    """
+    Add a custom asset to the profile
+    
+    Args:
+        profile_name (str): Name of the profile
+        asset_symbol (str): Asset symbol to add
+        data (dict, optional): Profile data. If None, data will be loaded.
+        
+    Returns:
+        tuple: (success, message, updated_data)
+    """
+    if data is None:
+        data = load_profile_data(profile_name)
+    
+    # Initialiser la liste des actifs personnalisés si elle n'existe pas
+    if '_custom_assets' not in data:
+        data['_custom_assets'] = []
+    
+    # Vérifier si l'actif existe déjà
+    if asset_symbol in data['_custom_assets']:
+        return False, f"L'actif {asset_symbol} existe déjà.", data
+    
+    # Ajouter le nouvel actif
+    data['_custom_assets'].append(asset_symbol)
+    data['_custom_assets'].sort()  # Garder la liste triée
+    
+    # Sauvegarder les modifications
+    if save_profile_data(profile_name, data):
+        return True, f"Actif {asset_symbol} ajouté avec succès.", data
+    else:
+        return False, "Erreur lors de la sauvegarde.", data
+
+def remove_custom_asset(profile_name, asset_symbol, data=None):
+    """
+    Remove a custom asset from the profile
+    
+    Args:
+        profile_name (str): Name of the profile
+        asset_symbol (str): Asset symbol to remove
+        data (dict, optional): Profile data. If None, data will be loaded.
+        
+    Returns:
+        tuple: (success, message, updated_data)
+    """
+    if data is None:
+        data = load_profile_data(profile_name)
+    
+    if '_custom_assets' not in data or asset_symbol not in data['_custom_assets']:
+        return False, f"L'actif {asset_symbol} n'existe pas.", data
+    
+    data['_custom_assets'].remove(asset_symbol)
+    
+    if save_profile_data(profile_name, data):
+        return True, f"Actif {asset_symbol} supprimé avec succès.", data
+    else:
+        return False, "Erreur lors de la sauvegarde.", data
+
 def get_profile_stats(profile_name):
     """
     Get statistics for a profile
