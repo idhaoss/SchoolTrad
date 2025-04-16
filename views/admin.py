@@ -5,10 +5,10 @@ when logged in as a Super Admin.
 """
 import streamlit as st
 import pandas as pd
-from trading_dashboard_pro.models.auth import get_profile_list, delete_profile
-from trading_dashboard_pro.models.data import get_profile_stats, load_profile_data, export_profile_data, import_profile_data, save_profile_data
-from trading_dashboard_pro.config.settings import ASSET_CATEGORIES, TIMEFRAMES
-from trading_dashboard_pro.views.assets import generate_asset_table
+from models.auth import get_profile_list, delete_profile
+from models.data import get_profile_stats, load_profile_data, export_profile_data, import_profile_data, save_profile_data
+from config.settings import ASSET_CATEGORIES, TIMEFRAMES
+from views.assets import generate_asset_table
 
 def show_profile_management(app_config):
     """
@@ -192,7 +192,7 @@ def show_profile_data_view(profile_name):
         
         # Utilisez generate_interactive_asset_table au lieu de generate_asset_table
         # Mais stockez les sélections dans des variables spécifiques à l'admin
-        from trading_dashboard_pro.views.assets import generate_interactive_asset_table
+        from views.assets import generate_interactive_asset_table
         
         # Définir une fonction pour capturer la sélection en mode admin
         def admin_generate_interactive_asset_table(assets, timeframes, profile_data):
@@ -221,7 +221,7 @@ def show_profile_data_view(profile_name):
                 for i, tf in enumerate(timeframes):
                     with cols[i+1]:
                         # Build status indicators
-                        from trading_dashboard_pro.models.data import is_tested, is_improved, has_note, has_screenshots
+                        from models.data import is_tested, is_improved, has_note, has_screenshots
                         
                         status_parts = []
                         
@@ -266,7 +266,7 @@ def show_profile_data_view(profile_name):
         admin_generate_interactive_asset_table(current_assets, TIMEFRAMES, profile_data)
         
         # Montrer la légende
-        from trading_dashboard_pro.views.assets import show_table_legend
+        from views.assets import show_table_legend
         show_table_legend()
         
         # Export profile data button
@@ -285,7 +285,7 @@ def show_profile_data_view(profile_name):
         # Panneau de droite : détails de la configuration sélectionnée
         if st.session_state.admin_selected_asset and st.session_state.admin_selected_timeframe:
             # Vue détaillée d'une configuration
-            from trading_dashboard_pro.views.details import show_details_view
+            from views.details import show_details_view
             
             # Créer une copie des données du profil pour cette vue
             admin_view_data = profile_data.copy() if profile_data else {}
@@ -364,7 +364,7 @@ def show_admin_view():
     st.title("Tableau de Bord Super Admin")
     
     # Toujours recharger la configuration depuis le disque pour voir les nouveaux profils
-    from trading_dashboard_pro.models.auth import setup_config
+    from models.auth import setup_config
     st.session_state.app_config = setup_config()
     print("Configuration rechargée pour le tableau de bord admin")
     

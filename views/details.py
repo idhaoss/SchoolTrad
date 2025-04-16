@@ -4,13 +4,13 @@ Shows detailed information for a selected asset and timeframe, including
 parameters, notes, and screenshots.
 """
 import streamlit as st
-from trading_dashboard_pro.models.data import (
+from models.data import (
     is_tested, is_improved, get_params, save_params, 
     get_note, save_note, get_screenshots, save_screenshot, 
     delete_screenshot, process_uploaded_image, save_profile_data,
     toggle_tested, toggle_improved
 )
-from trading_dashboard_pro.config.settings import DEFAULT_PARAMS, MAX_SCREENSHOTS
+from config.settings import DEFAULT_PARAMS, MAX_SCREENSHOTS
 
 def show_status_indicators(asset, timeframe, profile_data):
     """

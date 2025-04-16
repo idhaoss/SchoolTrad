@@ -7,7 +7,7 @@ import hashlib
 import secrets
 from datetime import datetime
 
-from ..config.settings import CONFIG_FILE, PROFILES_DIR, DEFAULT_PROFILE, DEFAULT_APP_CONFIG
+from config.settings import CONFIG_FILE, PROFILES_DIR, DEFAULT_PROFILE, DEFAULT_APP_CONFIG
 
 def get_profile_path(profile_name):
     """

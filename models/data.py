@@ -9,8 +9,8 @@ from datetime import datetime
 from io import BytesIO
 import base64
 from PIL import Image
-from trading_dashboard_pro.models.auth import get_profile_path
-from trading_dashboard_pro.config.settings import DEFAULT_PARAMS, MAX_SCREENSHOTS
+from models.auth import get_profile_path
+from config.settings import DEFAULT_PARAMS, MAX_SCREENSHOTS
 
 def load_profile_data(profile_name):
     """

@@ -3,15 +3,15 @@ Authentication views for the Trading Dashboard Pro application.
 Includes login screen, profile selection, and related UI components.
 """
 import streamlit as st
-from trading_dashboard_pro.models.auth import (
+from models.auth import (
     setup_config, 
     create_profile, 
     verify_admin, 
     set_admin_password, 
     get_profile_list
 )
-from trading_dashboard_pro.models.data import load_profile_data
-from trading_dashboard_pro.config.styles import MAIN_CSS
+from models.data import load_profile_data
+from config.styles import MAIN_CSS
 
 def show_login_screen():
     """

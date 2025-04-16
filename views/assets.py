@@ -4,8 +4,8 @@ Displays the main asset × timeframe table and related components.
 """
 import streamlit as st
 import pandas as pd
-from trading_dashboard_pro.config.settings import ASSET_CATEGORIES, TIMEFRAMES
-from trading_dashboard_pro.models.data import (
+from config.settings import ASSET_CATEGORIES, TIMEFRAMES
+from models.data import (
     is_tested, is_improved, has_note, has_screenshots, toggle_tested, toggle_improved,
     save_profile_data
 )
